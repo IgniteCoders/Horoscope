@@ -12,18 +12,18 @@ import com.example.horoscope.data.Horoscope
 class MainActivity : AppCompatActivity() {
 
     var horoscopeList:List<Horoscope> = listOf(
-        Horoscope(R.drawable.aries_icon, R.string.horoscope_name_aries),
-        Horoscope(R.drawable.taurus_icon, R.string.horoscope_name_taurus),
-        Horoscope(R.drawable.gemini_icon, R.string.horoscope_name_gemini),
-        Horoscope(R.drawable.cancer_icon, R.string.horoscope_name_cancer),
-        Horoscope(R.drawable.leo_icon, R.string.horoscope_name_leo),
-        Horoscope(R.drawable.virgo_icon, R.string.horoscope_name_virgo),
-        Horoscope(R.drawable.libra_icon, R.string.horoscope_name_libra),
-        Horoscope(R.drawable.scorpius_icon, R.string.horoscope_name_scorpio),
-        Horoscope(R.drawable.sagittarius_icon, R.string.horoscope_name_sagittarius),
-        Horoscope(R.drawable.capricornius_icon, R.string.horoscope_name_capricorn),
-        Horoscope(R.drawable.aquarius_icon, R.string.horoscope_name_aquarius),
-        Horoscope(R.drawable.pisces_icon, R.string.horoscope_name_pisces),
+        Horoscope.Aries,
+        Horoscope.Taurus,
+        Horoscope.Gemini,
+        Horoscope.Cancer,
+        Horoscope.Leo,
+        Horoscope.Virgo,
+        Horoscope.Libra,
+        Horoscope.Scorpio,
+        Horoscope.Sagittarius,
+        Horoscope.Capricorn,
+        Horoscope.Aquarius,
+        Horoscope.Pisces
     )
 
     lateinit var adapter: HorocopeAdapter
@@ -45,5 +45,6 @@ class MainActivity : AppCompatActivity() {
         adapter = HorocopeAdapter(horoscopeList)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
+
     }
 }
