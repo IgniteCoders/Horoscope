@@ -2,19 +2,22 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="center_vertical">
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:clickable="true"
+    android:focusable="true"
+    android:background="?android:attr/selectableItemBackground">
 
     <ImageView
         android:id="@+id/horoscopeImageView"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:layout_marginVertical="4dp"
-        android:layout_marginHorizontal="8dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginVertical="8dp"
         android:src="@drawable/aries_icon"/>
 
     <TextView
         android:id="@+id/horoscopeTextView"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="30sp"
         android:text="Horoscopo"/>

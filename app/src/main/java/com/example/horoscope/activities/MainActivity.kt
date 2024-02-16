@@ -1,17 +1,17 @@
 package com.example.horoscope.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.example.horoscope.R
-import com.example.horoscope.adapters.HorocopeAdapter
+import com.example.horoscope.adapters.HoroscopeAdapter
 import com.example.horoscope.data.Horoscope
 
 class MainActivity : AppCompatActivity() {
 
-    var horoscopeList:List<Horoscope> = listOf(
+    private var horoscopeList:List<Horoscope> = listOf(
         Horoscope.Aries,
         Horoscope.Taurus,
         Horoscope.Gemini,
@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         Horoscope.Pisces
     )
 
-    lateinit var adapter: HorocopeAdapter
+    lateinit var horocopeAdapter: HoroscopeAdapter
 
     lateinit var recyclerView: RecyclerView
 
@@ -35,16 +35,18 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         initView()
-
-        getString(R.string.horoscope_name_aries)
     }
 
     private fun initView() {
         recyclerView = findViewById(R.id.recyclerView)
 
-        adapter = HorocopeAdapter(horoscopeList)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = adapter
+        horocopeAdapter = HoroscopeAdapter(horoscopeList) {
+            onItemClickListener(it)
+        }
+        //recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.layoutManager = GridLayoutManager(this, 2)
+        recyclerView.adapter = horocopeAdapter
+    }
 
     }
 }
