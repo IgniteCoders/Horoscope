@@ -48,5 +48,12 @@ class MainActivity : AppCompatActivity() {
         recyclerView.adapter = horocopeAdapter
     }
 
+    private fun onItemClickListener(position:Int) {
+        val horoscope:Horoscope = horoscopeList[position]
+
+        val intent = Intent(this, DetailActivity::class.java)
+        intent.putExtra("HOROSCOPE_NAME", getString(horoscope.name))
+        startActivity(intent)
+        //Toast.makeText(this, getString(horoscope.name), Toast.LENGTH_LONG).show()
     }
 }
