@@ -7,10 +7,31 @@ import java.io.InputStream
 import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
-import java.net.URLConnection
 import javax.net.ssl.HttpsURLConnection
 
 class HoroscopeProvider {
+
+    fun getHoroscopes(): List<Horoscope> {
+        return listOf(
+            Horoscope.Aries,
+            Horoscope.Taurus,
+            Horoscope.Gemini,
+            Horoscope.Cancer,
+            Horoscope.Leo,
+            Horoscope.Virgo,
+            Horoscope.Libra,
+            Horoscope.Scorpio,
+            Horoscope.Sagittarius,
+            Horoscope.Capricorn,
+            Horoscope.Aquarius,
+            Horoscope.Pisces
+        )
+    }
+
+    fun getHoroscope(id: String): Horoscope {
+        return getHoroscopes().filter { it.id == id }.firstOrNull()!!
+    }
+
     suspend fun getHoroscopeLuck(horoscopeId: String): String? {
         val url = URL("https://horoscope-app-api.vercel.app/api/v1/get-horoscope/daily?sign=$horoscopeId&day=TODAY") // URL de la API o endpoint
         var connection: HttpsURLConnection? = null

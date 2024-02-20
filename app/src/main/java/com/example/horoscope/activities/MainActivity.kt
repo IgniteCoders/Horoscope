@@ -8,23 +8,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.horoscope.R
 import com.example.horoscope.adapters.HoroscopeAdapter
 import com.example.horoscope.data.Horoscope
+import com.example.horoscope.data.HoroscopeProvider
 
 class MainActivity : AppCompatActivity() {
 
-    private var horoscopeList:List<Horoscope> = listOf(
-        Horoscope.Aries,
-        Horoscope.Taurus,
-        Horoscope.Gemini,
-        Horoscope.Cancer,
-        Horoscope.Leo,
-        Horoscope.Virgo,
-        Horoscope.Libra,
-        Horoscope.Scorpio,
-        Horoscope.Sagittarius,
-        Horoscope.Capricorn,
-        Horoscope.Aquarius,
-        Horoscope.Pisces
-    )
+    private val horoscopeList : List<Horoscope> = HoroscopeProvider().getHoroscopes()
 
     lateinit var horocopeAdapter: HoroscopeAdapter
 
@@ -52,7 +40,7 @@ class MainActivity : AppCompatActivity() {
         val horoscope:Horoscope = horoscopeList[position]
 
         val intent = Intent(this, DetailActivity::class.java)
-        intent.putExtra("HOROSCOPE_NAME", getString(horoscope.name))
+        intent.putExtra("HOROSCOPE_ID", horoscope.id)
         startActivity(intent)
         //Toast.makeText(this, getString(horoscope.name), Toast.LENGTH_LONG).show()
     }

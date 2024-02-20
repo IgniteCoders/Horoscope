@@ -7,15 +7,38 @@
     tools:context=".activities.DetailActivity"
     android:orientation="vertical">
 
+    <ImageView
+        android:id="@+id/horoscopeImageView"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginVertical="8dp"
+        tools:src="@drawable/aries_icon"
+        android:layout_gravity="center_horizontal"/>
+
     <TextView
         android:id="@+id/horoscopeTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="30sp"/>
+        android:textStyle="bold"
+        android:textSize="30sp"
+        android:gravity="center"
+        tools:text="Aries"/>
+
+
     <TextView
-        android:id="@+id/horoscopeLuckTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="24sp"/>
+        android:textSize="24sp"
+        android:text="Horoscopo del día:"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/horoscopeLuckTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"/>
+    </ScrollView>
 
 </LinearLayout>
