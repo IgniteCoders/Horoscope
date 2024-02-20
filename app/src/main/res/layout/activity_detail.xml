@@ -22,7 +22,8 @@
         android:textStyle="bold"
         android:textSize="30sp"
         android:gravity="center"
-        tools:text="Aries"/>
+        tools:text="Aries"
+        android:visibility="gone"/>
 
 
     <TextView

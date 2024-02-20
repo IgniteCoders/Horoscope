@@ -29,7 +29,7 @@ class HoroscopeProvider {
     }
 
     fun getHoroscope(id: String): Horoscope {
-        return getHoroscopes().filter { it.id == id }.firstOrNull()!!
+        return getHoroscopes().filter { it.id == id }.first()
     }
 
     suspend fun getHoroscopeLuck(horoscopeId: String): String? {
@@ -40,6 +40,7 @@ class HoroscopeProvider {
         try {
             // Crear la conexión HTTP
             connection = url.openConnection() as HttpsURLConnection
+            connection.connectTimeout = 10000
             connection.requestMethod = "GET" // Establecer el método GET
             connection.setRequestProperty("Accept", "application/json") // Establecer el tipo de contenido
 

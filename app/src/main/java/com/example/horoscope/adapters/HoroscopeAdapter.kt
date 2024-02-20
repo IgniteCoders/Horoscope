@@ -10,8 +10,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.horoscope.R
 import com.example.horoscope.data.Horoscope
 
-class HoroscopeAdapter(val items:List<Horoscope> = listOf(), val onClickListener: (position:Int) -> Unit)
+class HoroscopeAdapter(var items:List<Horoscope> = listOf(), val onClickListener: (position:Int) -> Unit)
     : RecyclerView.Adapter<HoroscopeViewHolder>() {
+
+    fun updateData(list :List<Horoscope>) {
+        this.items = list
+        notifyDataSetChanged()
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HoroscopeViewHolder {
         val view:View = LayoutInflater.from(parent.context).inflate(R.layout.item_horoscope, parent, false)
         return HoroscopeViewHolder(view)

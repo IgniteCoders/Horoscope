@@ -1,15 +1,17 @@
 package com.example.horoscope.activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import com.example.horoscope.R
 import com.example.horoscope.data.Horoscope
 import com.example.horoscope.data.HoroscopeProvider
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+
 
 class DetailActivity : AppCompatActivity() {
 
@@ -32,12 +34,35 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun initView() {
+        // Show back button
+        supportActionBar?.setDisplayHomeAsUpEnabled(true);
+        //supportActionBar?.setDisplayShowHomeEnabled(true);
+
+        // Set title
+        supportActionBar?.setTitle(horoscope.name);
+        supportActionBar?.setSubtitle(horoscope.dates);
+
+        // Set icon
+        //supportActionBar?.setLogo(horoscope.image);
+
         horoscopeTextView = findViewById(R.id.horoscopeTextView)
         horoscopeImageView = findViewById(R.id.horoscopeImageView)
         horoscopeLuckTextView = findViewById(R.id.horoscopeLuckTextView)
 
         horoscopeTextView.text = getString(horoscope.name)
         horoscopeImageView.setImageResource(horoscope.image)
+    }
+
+    // this event will enable the back
+    // function to the button on press
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun getHoroscopeLuck() {
