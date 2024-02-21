@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -11,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.horoscope.R
 import com.example.horoscope.data.Horoscope
 import com.example.horoscope.data.HoroscopeProvider
+import com.example.horoscope.utils.SessionManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -18,19 +20,30 @@ import kotlinx.coroutines.launch
 
 class DetailActivity : AppCompatActivity() {
 
+    companion object {
+        const val EXTRA_ID = "HOROSCOPE_ID"
+    }
+
+    private lateinit var session:SessionManager
+
     private var currentHoroscopeIndex:Int = -1
     private var horoscopeId:String? = null
     private lateinit var horoscope:Horoscope
+    private var isFavorite = false
 
     private lateinit var horoscopeTextView:TextView
     private lateinit var horoscopeImageView:ImageView
+    private lateinit var horoscopeFavoriteImageButton:ImageButton
     private lateinit var horoscopeLuckTextView:TextView
     private lateinit var progress:ProgressBar
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
 
-        horoscopeId = intent.getStringExtra("HOROSCOPE_ID")
+        session = SessionManager(this)
+
+        horoscopeId = intent.getStringExtra(EXTRA_ID)
         horoscope = HoroscopeProvider().getHoroscope(horoscopeId!!)
         currentHoroscopeIndex = HoroscopeProvider().getHoroscopeIndex(horoscope)
 
@@ -46,12 +59,24 @@ class DetailActivity : AppCompatActivity() {
 
         horoscopeTextView = findViewById(R.id.horoscopeTextView)
         horoscopeImageView = findViewById(R.id.horoscopeImageView)
+        horoscopeFavoriteImageButton = findViewById(R.id.horoscopeFavoriteImageButton)
         horoscopeLuckTextView = findViewById(R.id.horoscopeLuckTextView)
         progress = findViewById(R.id.progress)
+
+        horoscopeFavoriteImageButton.setOnClickListener {
+            isFavorite = !isFavorite
+            if (isFavorite) {
+                session.setFavoriteHoroscope(horoscope.id)
+            } else {
+                session.setFavoriteHoroscope("")
+            }
+            setFavoriteDrawable()
+        }
     }
 
     private fun loadData() {
         horoscope = HoroscopeProvider().getHoroscope(currentHoroscopeIndex)
+        isFavorite = horoscope.id == session.getFavoriteHoroscope()
 
         // Set title
         supportActionBar?.setTitle(horoscope.name);
@@ -60,7 +85,18 @@ class DetailActivity : AppCompatActivity() {
         horoscopeTextView.text = getString(horoscope.name)
         horoscopeImageView.setImageResource(horoscope.image)
 
+        setFavoriteDrawable()
+
         getHoroscopeLuck()
+    }
+
+    private fun setFavoriteDrawable () {
+        val favDrawableId = if (isFavorite) {
+            R.drawable.ic_favorite_selected
+        } else {
+            R.drawable.ic_favorite
+        }
+        horoscopeFavoriteImageButton.setImageResource(favDrawableId)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

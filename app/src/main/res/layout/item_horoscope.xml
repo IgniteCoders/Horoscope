@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_horizontal"
@@ -8,18 +10,31 @@
     android:focusable="true"
     android:background="?android:attr/selectableItemBackground">
 
-    <ImageView
-        android:id="@+id/horoscopeImageView"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_marginVertical="8dp"
-        android:src="@drawable/aries_icon"/>
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/horoscopeImageView"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginVertical="8dp"
+            tools:src="@drawable/aries_icon"/>
+        <ImageView
+            android:id="@+id/horoscopeFavoriteImageView"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@drawable/ic_favorite_selected"
+            app:tint="@color/teal_200"
+            android:scaleType="centerCrop"
+            android:background="@color/transparent"
+            android:layout_gravity="bottom|end"/>
+    </FrameLayout>
 
     <TextView
         android:id="@+id/horoscopeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="30sp"
-        android:text="Horoscopo"/>
+        tools:text="Horoscopo"/>
 
 </LinearLayout>

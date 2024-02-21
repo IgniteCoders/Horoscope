@@ -12,8 +12,11 @@ import com.example.horoscope.R
 import com.example.horoscope.adapters.HoroscopeAdapter
 import com.example.horoscope.data.Horoscope
 import com.example.horoscope.data.HoroscopeProvider
+import com.example.horoscope.utils.SessionManager
 
 class MainActivity : AppCompatActivity() {
+
+    //private lateinit var session: SessionManager
 
     private var horoscopeList : List<Horoscope> = HoroscopeProvider().getHoroscopes()
 
@@ -25,15 +28,25 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        //session = SessionManager(this)
+
         initView()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        loadData()
     }
 
     private fun initView() {
         recyclerView = findViewById(R.id.recyclerView)
+    }
 
+    private fun loadData() {
         horocopeAdapter = HoroscopeAdapter(horoscopeList) {
             onItemClickListener(it)
         }
+
         //recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = GridLayoutManager(this, 2)
         recyclerView.adapter = horocopeAdapter
@@ -43,7 +56,7 @@ class MainActivity : AppCompatActivity() {
         val horoscope:Horoscope = horoscopeList[position]
 
         val intent = Intent(this, DetailActivity::class.java)
-        intent.putExtra("HOROSCOPE_ID", horoscope.id)
+        intent.putExtra(DetailActivity.EXTRA_ID, horoscope.id)
         startActivity(intent)
         //Toast.makeText(this, getString(horoscope.name), Toast.LENGTH_LONG).show()
     }
