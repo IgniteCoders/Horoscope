@@ -32,6 +32,14 @@ class HoroscopeProvider {
         return getHoroscopes().filter { it.id == id }.first()
     }
 
+    fun getHoroscope(index: Int): Horoscope {
+        return getHoroscopes()[index]
+    }
+
+    fun getHoroscopeIndex(horoscope: Horoscope): Int {
+        return getHoroscopes().indexOf(horoscope)
+    }
+
     suspend fun getHoroscopeLuck(horoscopeId: String): String? {
         val url = URL("https://horoscope-app-api.vercel.app/api/v1/get-horoscope/daily?sign=$horoscopeId&day=TODAY") // URL de la API o endpoint
         var connection: HttpsURLConnection? = null

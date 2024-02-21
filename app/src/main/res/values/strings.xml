@@ -2,6 +2,10 @@
     <string name="app_name">Horoscope</string>
 
     <string name="menu_search">Search</string>
+    <string name="menu_next">Next</string>
+    <string name="menu_prev">Previous</string>
+
+    <string name="horoscope_of_day">Horoscope of today:</string>
 
     <string name="horoscope_name_aries">Aries</string>
     <string name="horoscope_name_taurus">Taurus</string>

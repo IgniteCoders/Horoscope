@@ -30,16 +30,32 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="24sp"
-        android:text="Horoscopo del día:"/>
+        android:textStyle="bold"
+        android:gravity="center"
+        android:text="@string/horoscope_of_day"/>
 
-    <ScrollView
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/horoscopeLuckTextView"
+        android:layout_height="match_parent">
+
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="24sp"/>
-    </ScrollView>
+            android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/horoscopeLuckTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="24sp"
+                    android:padding="16dp"/>
+        </ScrollView>
+
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_gravity="center"
+            />
+    </FrameLayout>
 
 </LinearLayout>
