@@ -102,4 +102,23 @@ class MainActivity : AppCompatActivity() {
             })
         }
     }
+
+    /*@SuppressLint("MissingSuperCall")
+    override fun onBackPressed() {
+        //super.onBackPressed()
+        showExitDialog()
+    }
+
+    private fun showExitDialog() {
+        val builder: AlertDialog.Builder = AlertDialog.Builder(this)
+        builder
+            .setIcon(R.drawable.aries_icon)
+            .setTitle("Cerrar aplicación")
+            .setMessage("Esta seguro de que quiere salir de la aplicación?")
+            .setPositiveButton("Salir") { _, _ -> finish() }
+            .setNegativeButton("No") { dialog, _ -> dialog?.cancel() }
+
+        val dialog: AlertDialog = builder.create()
+        dialog.show()
+    }*/
 }

@@ -32,4 +32,6 @@
     <string name="horoscope_date_capricorn">December 22 to January 19</string>
     <string name="horoscope_date_aquarius">January 20 to February 18</string>
     <string name="horoscope_date_pisces">February 19 to March 20</string>
+    <string name="alert_error_title">Error</string>
+    <string name="alert_error_connection">There was an error trying to connect to the service</string>
 </resources>

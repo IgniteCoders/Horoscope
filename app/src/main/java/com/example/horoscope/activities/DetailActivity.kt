@@ -8,6 +8,7 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.horoscope.R
 import com.example.horoscope.data.Horoscope
@@ -29,7 +30,7 @@ class DetailActivity : AppCompatActivity() {
     private var currentHoroscopeIndex:Int = -1
     private var horoscopeId:String? = null
     private lateinit var horoscope:Horoscope
-    private var isFavorite = false
+    private var isFavorite:Boolean = false
 
     private lateinit var horoscopeTextView:TextView
     private lateinit var horoscopeImageView:ImageView
@@ -141,9 +142,24 @@ class DetailActivity : AppCompatActivity() {
             val result = HoroscopeProvider().getHoroscopeLuck(horoscope.id)
             runOnUiThread {
                 // Modificar UI
-                horoscopeLuckTextView.text = result
                 progress.visibility = View.GONE
+                if (result != null) {
+                    horoscopeLuckTextView.text = result
+                } else {
+                    showErrorDialog()
+                }
             }
         }
+    }
+
+    private fun showErrorDialog() {
+        val builder: AlertDialog.Builder = AlertDialog.Builder(this)
+        builder
+            .setTitle(R.string.alert_error_title)
+            .setMessage(R.string.alert_error_connection)
+            .setPositiveButton(android.R.string.ok) { dialog, _ -> dialog?.cancel() }
+
+        val dialog: AlertDialog = builder.create()
+        dialog.show()
     }
 }

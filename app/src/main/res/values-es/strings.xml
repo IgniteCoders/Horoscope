@@ -33,4 +33,6 @@
     <string name="horoscope_date_capricorn">22 de diciembre al 19 de enero</string>
     <string name="horoscope_date_aquarius">20 de enero al 18 de febrero</string>
     <string name="horoscope_date_pisces">19 de febrero al 20 de marzo</string>
+    <string name="alert_error_title">Error</string>
+    <string name="alert_error_connection">Hubo un error intentando conectar con el servicio</string>
 </resources>
