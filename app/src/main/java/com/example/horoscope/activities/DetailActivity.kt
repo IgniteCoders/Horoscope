@@ -1,10 +1,12 @@
 package com.example.horoscope.activities
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.ImageButton
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -31,12 +33,17 @@ class DetailActivity : AppCompatActivity() {
     private var horoscopeId:String? = null
     private lateinit var horoscope:Horoscope
     private var isFavorite:Boolean = false
+    private var dailyLuckText:String? = null
 
     private lateinit var horoscopeTextView:TextView
     private lateinit var horoscopeImageView:ImageView
-    private lateinit var horoscopeFavoriteImageButton:ImageButton
     private lateinit var horoscopeLuckTextView:TextView
     private lateinit var progress:ProgressBar
+    private lateinit var prevButton:Button
+    private lateinit var nextButton:Button
+
+    private var favoriteMenuItem: MenuItem? = null
+    private var shareMenuItem: MenuItem? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,18 +67,24 @@ class DetailActivity : AppCompatActivity() {
 
         horoscopeTextView = findViewById(R.id.horoscopeTextView)
         horoscopeImageView = findViewById(R.id.horoscopeImageView)
-        horoscopeFavoriteImageButton = findViewById(R.id.horoscopeFavoriteImageButton)
         horoscopeLuckTextView = findViewById(R.id.horoscopeLuckTextView)
         progress = findViewById(R.id.progress)
+        prevButton = findViewById(R.id.menu_prev)
+        nextButton = findViewById(R.id.menu_next)
 
-        horoscopeFavoriteImageButton.setOnClickListener {
-            isFavorite = !isFavorite
-            if (isFavorite) {
-                session.setFavoriteHoroscope(horoscope.id)
-            } else {
-                session.setFavoriteHoroscope("")
+        prevButton.setOnClickListener {
+            if (currentHoroscopeIndex == 0) {
+                currentHoroscopeIndex = HoroscopeProvider().getHoroscopes().size
             }
-            setFavoriteDrawable()
+            currentHoroscopeIndex--
+            loadData()
+        }
+        nextButton.setOnClickListener {
+            currentHoroscopeIndex ++
+            if (currentHoroscopeIndex == HoroscopeProvider().getHoroscopes().size) {
+                currentHoroscopeIndex = 0
+            }
+            loadData()
         }
     }
 
@@ -97,12 +110,16 @@ class DetailActivity : AppCompatActivity() {
         } else {
             R.drawable.ic_favorite
         }
-        horoscopeFavoriteImageButton.setImageResource(favDrawableId)
+        favoriteMenuItem?.setIcon(favDrawableId);
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.horoscope_menu, menu)
+        favoriteMenuItem = menu?.findItem(R.id.menu_favorite)
+        shareMenuItem = menu?.findItem(R.id.menu_share)
+        shareMenuItem?.setEnabled(false)
+        setFavoriteDrawable ()
         return true
     }
 
@@ -114,27 +131,36 @@ class DetailActivity : AppCompatActivity() {
                 finish()
                 return true
             }
-            R.id.menu_prev -> {
-                if (currentHoroscopeIndex == 0) {
-                    currentHoroscopeIndex = HoroscopeProvider().getHoroscopes().size
+            R.id.menu_favorite -> {
+                isFavorite = !isFavorite
+                if (isFavorite) {
+                    session.setFavoriteHoroscope(horoscope.id)
+                } else {
+                    session.setFavoriteHoroscope("")
                 }
-                currentHoroscopeIndex--
-                loadData()
+                setFavoriteDrawable()
                 return true
             }
-            R.id.menu_next -> {
-                currentHoroscopeIndex ++
-                if (currentHoroscopeIndex == HoroscopeProvider().getHoroscopes().size) {
-                    currentHoroscopeIndex = 0
-                }
-                loadData()
+            R.id.menu_share -> {
+                shareHoroscope()
                 return true
             }
         }
         return super.onOptionsItemSelected(item)
     }
 
+    private fun shareHoroscope() {
+        val intent = Intent()
+        intent.setAction(Intent.ACTION_SEND)
+        intent.putExtra(Intent.EXTRA_TEXT, dailyLuckText)
+        intent.setType("text/plain")
+
+        val shareIntent = Intent.createChooser(intent, null)
+        startActivity(shareIntent)
+    }
+
     private fun getHoroscopeLuck() {
+        shareMenuItem?.setEnabled(false)
         progress.visibility = View.VISIBLE
         horoscopeLuckTextView.text = ""
         CoroutineScope(Dispatchers.IO).launch {
@@ -144,7 +170,9 @@ class DetailActivity : AppCompatActivity() {
                 // Modificar UI
                 progress.visibility = View.GONE
                 if (result != null) {
+                    dailyLuckText = result
                     horoscopeLuckTextView.text = result
+                    shareMenuItem?.setEnabled(true)
                 } else {
                     showErrorDialog()
                 }

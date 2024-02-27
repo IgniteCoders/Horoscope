@@ -5,6 +5,8 @@
     <string name="menu_search">Buscar</string>
     <string name="menu_next">Siguiente</string>
     <string name="menu_prev">Anterior</string>
+    <string name="menu_favorite">Favorito</string>
+    <string name="menu_share">Compartir</string>
 
     <string name="horoscope_of_day">Horoscopo del día:</string>
 

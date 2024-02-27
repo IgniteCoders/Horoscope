@@ -3,14 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/menu_prev"
-        android:title="@string/menu_prev"
-        android:icon="@drawable/ic_prev"
+        android:id="@+id/menu_favorite"
+        android:title="@string/menu_favorite"
+        android:icon="@drawable/ic_favorite"
         app:showAsAction="always"/>
     <item
-        android:id="@+id/menu_next"
-        android:title="@string/menu_next"
-        android:icon="@drawable/ic_next"
+        android:id="@+id/menu_share"
+        android:title="@string/menu_share"
+        android:icon="@drawable/ic_share"
+        app:iconTint="@color/ic_share_selector"
         app:showAsAction="always"/>
 
 </menu>
