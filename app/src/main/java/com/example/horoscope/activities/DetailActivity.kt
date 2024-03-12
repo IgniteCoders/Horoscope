@@ -1,7 +1,6 @@
 package com.example.horoscope.activities
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -90,7 +89,7 @@ class DetailActivity : AppCompatActivity() {
 
     private fun loadData() {
         horoscope = HoroscopeProvider().getHoroscope(currentHoroscopeIndex)
-        isFavorite = horoscope.id == session.getFavoriteHoroscope()
+        isFavorite = horoscope.id == session.favoriteHoroscope
 
         // Set title
         supportActionBar?.setTitle(horoscope.name);
@@ -134,9 +133,9 @@ class DetailActivity : AppCompatActivity() {
             R.id.menu_favorite -> {
                 isFavorite = !isFavorite
                 if (isFavorite) {
-                    session.setFavoriteHoroscope(horoscope.id)
+                    session.favoriteHoroscope = horoscope.id
                 } else {
-                    session.setFavoriteHoroscope("")
+                    session.setFavoriteHoroscopeValue("")
                 }
                 setFavoriteDrawable()
                 return true

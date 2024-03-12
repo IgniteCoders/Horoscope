@@ -13,7 +13,7 @@ import com.example.horoscope.utils.SessionManager
 
 class HoroscopeAdapter(
     private var items:List<Horoscope> = listOf(),
-    private val onClickListener: (position:Int) -> Unit
+    private val onClickListener: (Int) -> Unit
 ) : RecyclerView.Adapter<HoroscopeViewHolder>() {
 
     fun updateData(list :List<Horoscope>) {
@@ -46,7 +46,7 @@ class HoroscopeViewHolder(view:View) : RecyclerView.ViewHolder(view) {
         val context:Context = itemView.context
         horoscopeTextView.text = context.getString(horoscope.name)
         horoscopeImageView.setImageResource(horoscope.image)
-        if (horoscope.id == SessionManager(context).getFavoriteHoroscope()) {
+        if (horoscope.id == SessionManager(context).getFavoriteHoroscopeValue()) {
             horoscopeFavoriteImageView.visibility = View.VISIBLE
         } else {
             horoscopeFavoriteImageView.visibility = View.GONE
